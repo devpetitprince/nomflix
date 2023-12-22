@@ -186,7 +186,7 @@ function Tv() {
   const onBoxClicked = (tvId: number) => {
     history.push(`/tv/${tvId}`);
   };
-  const onOverlayClick = () => history.push("/");
+  const onOverlayClick = () => history.push("/tv");
   const clickedTv = bigTvMatch?.params.tvId && data?.results.find(tv => tv.id === +bigTvMatch.params.tvId);
   return (
     <Wrapper>
