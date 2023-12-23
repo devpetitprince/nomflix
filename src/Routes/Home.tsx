@@ -6,6 +6,8 @@ import { makeImagePath } from "../utils";
 import { useState } from "react";
 import { useHistory, useRouteMatch } from "react-router-dom";
 
+
+
 const Wrapper = styled.div`
     background: black;
 `;
@@ -37,7 +39,7 @@ const Overview = styled.p`
     width: 50%;
 `;
 
-const Slider = styled.div`
+const SliderBox = styled.div`
     position: relative;
     top: -100px;
 `;
@@ -98,6 +100,19 @@ const BigMovie = styled(motion.div)`
     border-radius: 15px;
     overflow: hidden;
     background-color: ${(props) => props.theme.black.lighter};
+`;
+
+const SliderContainer = styled.div`
+    padding: 55px 70px;
+`;
+
+const SliderTitle = styled.h2`
+    font-size: 3rem;
+    position: relative;
+    z-index: 2;
+    box-sizing: border-box;
+    font-family: "Noto Sans KR", sans-serif;
+    color: rgb(255, 255, 255)
 `;
 
 const BigCover = styled.div`
@@ -189,6 +204,10 @@ function Home() {
   const onOverlayClick = () => history.push("/");
   const clickedMovie = bigMovieMatch?.params.movieId && data?.results.find(movie => movie.id === +bigMovieMatch.params.movieId);
   console.log(clickedMovie);
+  function Settings(): void {
+    throw new Error("Function not implemented.");
+  }
+
   return (
     <Wrapper>
       {isLoading ? (
@@ -202,7 +221,10 @@ function Home() {
             <Title>{data?.results[0].title}</Title>
             <Overview>{data?.results[0].overview}</Overview>
           </Banner>
-          <Slider>
+          <SliderTitle>Now Airing</SliderTitle>
+          <SliderContainer />
+          
+          <SliderBox>
             <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
               <Row
                 variants={rowVariants}
@@ -212,7 +234,7 @@ function Home() {
                 transition={{ type: "tween", duration: 1 }}
                 key={index}
               >
-                {data?.results
+              {data?.results
                   .slice(1)
                   .slice(offset * index, offset * index + offset)
                   .map((movie) => (
@@ -233,7 +255,7 @@ function Home() {
                   ))}
               </Row>
             </AnimatePresence>
-          </Slider>
+          </SliderBox>
           <AnimatePresence>
           {bigMovieMatch ? (
           <>
@@ -261,6 +283,9 @@ function Home() {
         </>
       )}
     </Wrapper>
+  );
+}
+export default Home;
   );
 }
 export default Home;
